@@ -5,6 +5,9 @@ var _template = html`
 <style>
     :host {
         display: block;
+        height: 720px;
+        width: 420px;
+        color: white;
     }
 
     *,
@@ -14,78 +17,58 @@ var _template = html`
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
     }
+    
+    #calendar.material-calendar {
+        font-family: var(--pf-calendar-font, 'Roboto Condensed', sans-serif);
+        background: var(--pf-calendar-bg-color, #fff);
+    }
 
-
-    body {
-        overflow: hidden;
-        font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-        font-weight: 100;
-        color: rgba(255, 255, 255, 1);
+    #calendar {
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        width: 100%;
         margin: 0;
-        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        font-family: var(--pf-calendar-font, 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif);
         background: var(--pf-calendar-bg-color, #4A4A4A);
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    .classic-calendar {
-        -webkit-transform: translate3d(0, 0, 0);
-        -moz-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        width: var(--pf-calendar-width, 420px);
-        margin: 0 auto;
-        height: var(--pf-calendar-height, 720px);
-        overflow: hidden;
-    }
-    .material-calendar {
-        -webkit-transform: translate3d(0, 0, 0);
-        -moz-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        width: var(--pf-calendar-width, 420px);
-        margin: 0 auto;
-        height: var(--pf-calendar-height, 720px);
-        overflow: hidden;
-        font-family: 'Roboto Condensed', sans-serif;
     }
 
     .classic-calendar .header {
         height:  var(--pf-calendar-header-height,50px);
-        width: 420px;
+        width: 100%;
         background: var(--pf-calendar-header-background, rgba(66, 66, 66, 1));
         text-align: center;
         position: relative;
-        z-index: 100;
+        z-index: 2;
     }
     .material-calendar .header {
-        height:  var(--pf-calendar-header-height,111px);
-        width: 420px;
-        background: var(--pf-calendar-header-background, #009688);
+        height: var(--pf-calendar-header-height, 111px);
+        width: 100%;
+        background: var(--pf-calendar-header-background, var(--primary-color, #009688));
         text-align: center;
         position: relative;
-        z-index: 100;
+        z-index: 2;
     }
 
     .classic-calendar .header h1 {
         margin: 0;
         padding: 0;
-        font-size:var(--pf-calendar-month-title-font-size,20px);
-        line-height: var(--pf-calendar-month-title-line-height,50px);
-        font-weight: 100;
-        letter-spacing: 1px;
+        font-size: var(--pf-calendar-month-title-font-size, 20px);
+        line-height: var(--pf-calendar-month-title-line-height, 50px);
+        font-weight: var(--pf-calendar-month-title-font-weight, 100);
+        letter-spacing: var(--pf-calendar-month-title-letter-spacing, 1px);
         color: var(--pf-calendar-month-title-color, #000);
     }
     .material-calendar .header h1 {
         margin: 0;
         padding: 0;
-        font-size:var(--pf-calendar-month-title-font-size,36px);
-        line-height: var(--pf-calendar-month-title-line-height,113px);
-        font-weight: 100;
-        letter-spacing: 1px;
-        color: var(--pf-calendar-month-title-color, #fff);
+        font-size:var(--pf-calendar-month-title-font-size, 36px);
+        line-height: var(--pf-calendar-month-title-line-height, 113px);
+        font-weight: var(--pf-calendar-month-title-font-weight, 100);
+        letter-spacing: var(--pf-calendar-month-title-letter-spacing, 1px);
+        color: var(--pf-calendar-month-title-color, var(--light-text-primary, #fff));
     }
 
     .left,
@@ -101,34 +84,46 @@ var _template = html`
 
     .classic-calendar  .left {
         border-width: 7.5px 10px 7.5px 0;
-        border-color: transparent var(--pf-calendar-header-left-arrow-color, rgba(160, 159, 160, 1)) transparent transparent;
+        border-color: transparent var(--pf-calendar-header-arrow-color, rgba(160, 159, 160, 1)) transparent transparent;
         left: 20px;
     }
 
     .classic-calendar  .right {
         border-width: 7.5px 0 7.5px 10px;
-        border-color: transparent transparent transparent var(--pf-calendar-header-right-arrow-color, rgba(160, 159, 160, 1));
+        border-color: transparent transparent transparent var(--pf-calendar-header-arrow-color, rgba(160, 159, 160, 1));
         right: 20px;
     }
     .material-calendar  .left {
         border-width: 7.5px 10px 7.5px 0;
-        border-color: transparent var(--pf-calendar-header-left-arrow-color, #fff) transparent transparent;
+        border-color: transparent var(--pf-calendar-header-arrow-color, #fff) transparent transparent;
         left: 20px;
     }
 
     .material-calendar .right {
         border-width: 7.5px 0 7.5px 10px;
-        border-color: transparent transparent transparent var(--pf-calendar-header-right-arrow-color, #fff);
+        border-color: transparent transparent transparent var(--pf-calendar-header-arrow-color, #fff);
         right: 20px;
     }
 
     .month {
         /*overflow: hidden;*/
         opacity: 0;
+        overflow-y: auto;
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: var(--pf-calendar-header-height, 50px);
+        bottom: 30px;
+    }
+
+    .material-calendar .month {
+        top: var(--pf-calendar-header-height, 111px);
     }
 
     .month.new {
         -webkit-animation: fadeIn 1s ease-out;
+        -moz-animation:  fadeIn 1s ease-out;
+        animation:  fadeIn 1s ease-out;
         opacity: 1;
     }
 
@@ -160,37 +155,37 @@ var _template = html`
         opacity: 1;
     }
 
-    .classic-calendar  .week {
-        background: var(--pf-calendar-week-bg, #4A4A4A);
+    .week {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-auto-rows: 75px 120px;
+    }
+
+    .details {
+        grid-column-start: 1;
+        grid-column-end: end;
     }
 
     .classic-calendar  .day {
         display: inline-block;
-        width: 60px;
         padding: 10px;
         text-align: center;
         vertical-align: top;
         cursor: pointer;
         color: var(--pf-calendar-day-color, black);
-        background: var(--pf-calendar-day-bg, #4A4A4A);
         position: relative;
-        z-index: 100;
-    }
-    .material-calendar  .week {
-        background: var(--pf-calendar-week-bg, #fff);
+        /* z-index: 100; */
     }
 
     .material-calendar  .day {
         display: inline-block;
-        width: 60px;
         padding: 10px;
         text-align: center;
         vertical-align: top;
         cursor: pointer;
-        color: var(--pf-calendar-day-color, black);
-        background: var(--pf-calendar-day-bg, #fff);
+        color: var(--pf-calendar-day-color, var(--dark-text-primary, black));
         position: relative;
-        z-index: 100;
+        /* z-index: 100; */
     }
 
     .classic-calendar .day.other {
@@ -209,18 +204,18 @@ var _template = html`
         letter-spacing: .7px;
     }
     .material-calendar .day.other {
-        color: var(--pf-calendar-other-day-color, rgba(255, 255, 255, .3));
+        color: var(--pf-calendar-other-day-color, var(--dark-text-secondary, rgba(255, 255, 255, .3)));
     }
 
     .material-calendar .day.today {
-        color: var(--pf-calendar-today-color, #009688);
+        color: var(--pf-calendar-today-color, var(--primary-color, #009688));
     }
 
     .material-calendar .day-name {
         font-size: 9px;
         text-transform: uppercase;
         margin-bottom: 5px;
-        color: var(--pf-calendar-day-name-color, grey);
+        color: var(--pf-calendar-day-name-color, var(--dark-divider-color));
         letter-spacing: .7px;
     }
 
@@ -267,18 +262,12 @@ var _template = html`
 
     .classic-calendar .details {
         position: relative;
-        width: 420px;
-        height: 75px;
         background: var(--pf-calendar-event-detail-bg, rgba(164, 164, 164, 1));
-        margin-top: 5px;
         border-radius: 4px;
     }
     .material-calendar .details {
         position: relative;
-        width: 420px;
-        height: 75px;
-        background: var(--pf-calendar-event-detail-bg, #009688);
-        margin-top: 5px;
+        background: var(--pf-calendar-event-detail-bg, var(--primary-color, #009688));
         border-radius: 4px;
     }
 
@@ -315,16 +304,15 @@ var _template = html`
         height: 0px;
         border-style: solid;
         border-width: 0 5px 5px 5px;
-        border-color: transparent transparent var(--pf-calendar-event-detail-bg,#009688) transparent;
+        border-color: transparent transparent var(--pf-calendar-event-detail-bg, var(--primary-color, #009688)) transparent;
         transition: all 0.7s ease;
     }
 
     .events {
-        height: 75px;
+        height: 100%;
         padding: 7px 0;
         overflow-y: auto;
         overflow-x: hidden;
-
     }
 
 
@@ -404,18 +392,15 @@ var _template = html`
     .classic-calendar  .numberCircle {
         border-radius: 50%;
         behavior: url(PIE.htc); /* remove if you don't care about IE8 */
-
+        margin: 0 auto;
         width: 36px;
         height: 36px;
-
-
         background: var(--pf-calendar-selected-date-bg,black);
         border: 2px solid transparent;
         color: var(--pf-calendar-selected-date-color,#fff);
         text-align: center;
         font-size: 24px;
         letter-spacing: 1.5px;
-
     }
     .material-calendar .event span {
         display: inline-block;
@@ -426,11 +411,9 @@ var _template = html`
     .material-calendar  .numberCircle {
         border-radius: 50%;
         behavior: url(PIE.htc); /* remove if you don't care about IE8 */
-
+        margin: 0 auto;
         width: 36px;
         height: 36px;
-
-
         background: var(--pf-calendar-selected-date-bg,#009688);
         border: 2px solid transparent;
         color: var(--pf-calendar-selected-date-color,#fff);
@@ -456,15 +439,6 @@ var _template = html`
 
     }
 
-    .addbutton:hover {
-        background-color: var(--pf-calendar-addevent-button-hover-color, rgba(170, 170, 170, 1));
-    }
-
-    .addbutton:active {
-        position: relative;
-        top: 1px;
-    }
-
     .classic-calendar .legend {
         position: absolute;
         bottom: 0;
@@ -479,131 +453,31 @@ var _template = html`
         margin: 0px 3px;
     }
     .material-calendar .legend .cat .event-category {
-margin-top: 10px;
-width: 10px;
+        margin-top: 10px;
+        width: 10px;
 
-margin-left: 5px;
-}
+        margin-left: 5px;
+    }
     .classic-calendar .legend .cat {
         position: relative;
         display: inline-block;
         margin: 0px 3px;
     }
     .classic-calendar .legend .cat .event-category {
-margin-top: 10px;
-width: 10px;
+        margin-top: 10px;
+        width: 10px;
 
-margin-left: 5px;
-}
+        margin-left: 5px;
+    }
 
     .material-calendar .legend {
+        color: inherit;
         position: absolute;
         bottom: 0;
         width: 100%;
         height: 30px;
-        background: var(--pf-calendar-legend-bg, #009688);
+        background: var(--pf-calendar-bg-color, var(--primary-color, #009688));
         line-height: 30px;
-    }
-    @media (max-width: 430px) {
-        .classic-calendar, .material-calendar {
-            width: 350px;
-            height: 560px;
-        }
-
-        .material-calendar .header, .classic-calendar .header {
-            width: 350px;
-        }
-
-        .material-calendar .day, .classic-calendar .day {
-            width: 48px;
-            padding: 5px;
-        }
-
-        .material-calendar .day-name, .classic-calendar .day-name {
-            margin-bottom: 3px;
-        }
-        .day-number {
-            font-size: 18px;
-            letter-spacing: 1px;
-        }
-        .material-calendar .details,.classic-calendar .details{
-            width: 320px;
-            height: 65px;
-        }
-    }
-    @media (max-width: 360px) {
-        .classic-calendar, .material-calendar {
-            width: 320px;
-            height: 540px;
-        }
-
-        .material-calendar .header, .classic-calendar .header {
-            width: 320px;
-        }
-
-        .material-calendar .day, .classic-calendar .day {
-            width: 45px;
-            padding: 4px;
-        }
-
-        .material-calendar .day-name, .classic-calendar .day-name {
-            margin-bottom: 3px;
-        }
-        .day-number {
-            font-size: 16px;
-            letter-spacing: 1px;
-        }
-        .material-calendar .details,.classic-calendar .details{
-            width: 300px;
-            height: 65px;
-        }
-
-        .addbutton {
-            margin: 0px 23px;
-        }
-        .event {
-            font-size: 14px;
-        }
-    }
-    @media (max-width: 330px) {
-        .classic-calendar, .material-calendar {
-            width: 280px;
-            height: 480px;
-        }
-
-        .material-calendar .header, .classic-calendar .header {
-            width: 280px;
-        }
-
-        .material-calendar .day, .classic-calendar .day {
-            width: 36px;
-            padding: 1px;
-        }
-
-        .material-calendar .day-name, .classic-calendar .day-name {
-            margin-bottom: 2px;
-        }
-        .day-number {
-            font-size: 14px;
-            letter-spacing: 1px;
-        }
-        .material-calendar .details,.classic-calendar .details{
-            width: 260px;
-            height: 60px;
-        }
-        .material-calendar .numberCircle,.classic-calendar .numberCircle {
-            width: 30px;
-            height: 31px;
-            font-size: 20px;
-            letter-spacing: 1px;
-
-        }
-        .addbutton {
-            margin: 0px 23px;
-        }
-        .event {
-            font-size: 12px;
-        }
     }
 
 
@@ -838,17 +712,15 @@ margin-left: 5px;
  * Custom property                         | Description                             | Default
  * ----------------------------------------|-----------------------------------------|-------------------------
  * `--pf-calendar-bg-color`                |  Calendar background                    | #4A4A4A
- * `--pf-calendar-width`                   |  Calendar Width                         | 420px
- * `--pf-calendar-height`                  |  Calendar Height                        | 570px
+ * `--pf-calendar-font`                    |  Calendar font                          | 'Helvetica Neue UltraLight'
  * `--pf-calendar-header-background`       |  Calendar Header Background             | rgba(66, 66, 66, 1)
  * `--pf-calendar-header-height`           |  Calendar Header height                 | 50px
  * `--pf-calendar-month-title-font-size`   |   Font size of  month on header         | 20px
  * `--pf-calendar-month-title-line-height` |  Calendar Header title line Height      | rgba(66, 66, 66, 1)
- * `--pf-calendar-header-left-arrow-color` |  Previous Month arrow color             | rgba(160, 159, 160, 1)
- * `--pf-calendar-header-right-arrow-color`|  Next Month arrow color                 | rgba(160, 159, 160, 1)
+ * `--pf-calendar-month-title-font-weight` | Calendar Header title font weight       | 100
+ * `--pf-calendar-month-title-letter-spacing` | Calendar Header title letter spacing | 1px
+ * `--pf-calendar-header-arrow-color`      |  Next/previous Month arrow color        | rgba(160, 159, 160, 1)
  * `--pf-calendar-month-title-color`       |  Month Title color                      | #000
- * `--pf-calendar-week-bg`                 |  Background color of week               | #4A4A4A
- * `--pf-calendar-day-bg`                  |  Day Background                         | #4A4A4A
  * `--pf-calendar-day-color`               |  color of date                          | #000
  * `--pf-calendar-other-day-color`         |  color of previous and next month date  | rgba(255, 255, 255, .3)
  * `--pf-calendar-today-color`             |  Current date Color                     | rgba(156` 202, 235, 1)
@@ -860,9 +732,9 @@ margin-left: 5px;
  * `--pf-calendar-addevent-button-bg-color'|  Add Event Button color                 | rgba(164, 164, 164, 1)
  * `--pf-calendar-addevent-button-text-color`| Add Event text color                  | #fff
  * `--pf-calendar-addevent-button-hover-color`|  Add event button hover color        | rgba(170, 170, 170, 1)
- * `--pf-calendar-addbutton-disply`        |  to hide button set "none"              |inline-block
- * `--pf-calendar-deletebutton-disply`     |  to hide button set "none"              |inline
- * `--pf-calendar-editbutton-disply`       |  to hide button set "none"              |inline
+ * `--pf-calendar-addbutton-disply`        |  to hide button set "none"              | inline-block
+ * `--pf-calendar-deletebutton-disply`     |  to hide button set "none"              | inline
+ * `--pf-calendar-editbutton-disply`       |  to hide button set "none"              | inline
  * `--pf-calendar-legend-bg`               |  Background color of legend bar         | rgba(60, 60, 60, 1)
  * 
  * @customElement
